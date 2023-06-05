@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "550360f0387c4aac839599d68983b418"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
 <html lang="en">
 
 <head>
@@ -69,21 +77,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="console-log">Console Log</button>
+      <button id="console-error">Console Error</button>
+      <button id="console-count">Console Count</button>
+      <button id="console-warn">Console Warn</button>
+      <button id="console-assert">Console Assert</button>
+      <button id="console-clear">Console Clear</button>
+      <button id="console-dir">Console Dir</button>
+      <button id="console-dirxml">Console Dirxml</button>
+      <button id="console-group-start">Console Group Start</button>
+      <button id="console-group-end">Console Group End</button>
+      <button id="console-table">Console Table</button>
+      <button id="start-timer">Start Timer</button>
+      <button id="end-timer">End Timer</button>
+      <button id="console-trace">Console Trace</button>
+      <button id="trigger-global-error">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -100,8 +108,113 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+    // Console Log
+    errorBtns[0].addEventListener('click', () => {
+      console.log('Console Log Demo');
+    });
+
+    // Console Error
+    errorBtns[1].addEventListener('click', () => {
+      console.error('Console Error Demo');
+    });
+
+    // Console Count
+    let count = 0;
+    errorBtns[2].addEventListener('click', () => {
+      console.count('Console Count Demo');
+    });
+
+    // Console Warn
+    errorBtns[3].addEventListener('click', () => {
+      console.warn('Console Warn Demo');
+    });
+
+    // Console Assert
+    errorBtns[4].addEventListener('click', () => {
+      console.assert(false, 'Console Assert Demo');
+    });
+
+    // Console Clear
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    });
+
+    // Console Dir
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(document.body);
+    });
+
+    // Console Dirxml
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(document.body);
+    });
+
+    // Console Group Start
+    errorBtns[8].addEventListener('click', () => {
+      console.group('Console Group');
+    });
+
+    // Console Group End
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    // Console Table
+    errorBtns[10].addEventListener('click', () => {
+      console.table([{ name: 'John', age: 30 }, { name: 'Jane', age: 28 }]);
+    });
+
+    // Start Timer
+    errorBtns[11].addEventListener('click', () => {
+      console.time('Timer');
+    });
+
+    // End Timer
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd('Timer');
+    });
+
+    // Console Trace
+    errorBtns[13].addEventListener('click', () => {
+      console.trace('Console Trace Demo');
+    });
+
+    // Trigger a Global Error
+    errorBtns[14].addEventListener('click', () => {
+      console.log(undefinedVariable);
+    });
+
+    try {
+      console.log(undefinedVariable);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    } finally {
+      console.log('This will always execute.');
+    }
+
+    class CustomError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'CustomError';
+      }
+    }
+
+    function throwError() {
+      throw new CustomError('This is a custom error.');
+    }
+
+    try {
+      throwError();
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+
+    window.onerror = function(message, source, line, column, error) {
+      console.error('Global error occurred:', message);
+
+      TrackJS.track('Testing TrackJS!');
+    };
+
   </script>
 </body>
 
